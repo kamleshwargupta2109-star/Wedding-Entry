@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deepak Weds Priyanshu ❤️</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ background:#300712;
+ color:#ffe6ae;
+ font-family:Georgia,serif;
+}
+button{cursor:pointer;font-family:inherit}
+
+/* TEMPLE ENTRY */
+#entry{
+ position:fixed;
+ inset:0;
+ z-index:1000;
+ background:#21050c;
+ overflow:hidden;
+}
+.temple-image{
+ position:absolute;
+ inset:0;
+ background:url("jagannath-entry.png") center center/100% 100% no-repeat;
+ transition:transform 3s ease;
+}
+.entry-shade{
+ position:absolute;
+ inset:0;
+ background:linear-gradient(transparent 60%,#24050b55);
+ pointer-events:none;
+}
+.entry-hint{
+ position:absolute;
+ bottom:8%;
+ left:0;
+ width:100%;
+ text-align:center;
+ color:#fff0c5;
+ font-size:13px;
+ letter-spacing:2px;
+ text-shadow:0 2px 8px #300;
+ z-index:4;
+ pointer-events:none;
+}
+
+/* Door panels over the temple doorway */
+.door-area{
+ position:absolute;
+ top:39%;
+ left:31%;
+ width:38%;
+ height:34%;
+ display:flex;
+ perspective:1000px;
+ z-index:3;
+ pointer-events:none;
+}
+.temple-door{
+ width:50%;
+ height:100%;
+ position:relative;
+ background:
+ repeating-linear-gradient(90deg,#43160c,#a45a24 12%,#57200f 24%);
+ border:4px ridge #edbd58;
+ box-shadow:inset 0 0 15px #e9a33e;
+ transition:transform 2.6s cubic-bezier(.2,.7,.2,1);
+}
+.temple-door:before{
+ content:"";
+ position:absolute;
+ inset:9px;
+ border:2px solid #eec66c;
+}
+.temple-door:after{
+ content:"✥";
+ position:absolute;
+ top:40%;
+ left:40%;
+ font-size:30px;
+ color:#f8d278;
+ text-shadow:0 0 12px gold;
+}
+.left-door{transform-origin:left center}
+.right-door{transform-origin:right center}
+
+#entry.opening .left-door{
+ transform:rotateY(-115deg);
+}
+#entry.opening .right-door{
+ transform:rotateY(115deg);
+}
+#entry.opening .temple-image{
+ transform:scale(1.5);
+}
+#entry.hide{
+ opacity:0;
+ visibility:hidden;
+ transition:opacity 1.2s,visibility 1.2s;
+}
+
+/* INVITATION PAGE */
+#invitation{display:none}
+.hero{
+ text-align:center;
+ padding:55px 18px 35px;
+ background:radial-gradient(circle,#8e293c,#4d1020 65%,#250710);
+}
+.hero .om{font-size:55px}
+.hero h1{
+ color:#ffdb87;
+ font-size:36px;
+ text-shadow:0 0 15px #e5a83e;
+}
+.hero h2{color:#fff0cc}
+.hero p{line-height:1.8}
+.couple-name{
+ font-size:30px;
+ color:#ffdfa0;
+ margin:20px 0;
+}
+.container{
+ max-width:550px;
+ margin:auto;
+ padding:20px 17px 65px;
+}
+.heading{
+ text-align:center;
+ color:#ffdc8d;
+ font-size:25px;
+ margin:35px 0;
+}
+
+/* ENVELOPES */
+.envelope-card{
+ text-align:center;
+ margin:35px 0 48px;
+}
+.open-label{
+ display:inline-block;
+ padding:9px 22px;
+ border:1px solid #f5d18a;
+ border-radius:30px;
+ color:#ffe6ae;
+ letter-spacing:2px;
+ font-size:13px;
+ margin-bottom:15px;
+ animation:shine 2s infinite;
+}
+@keyframes shine{
+ 50%{box-shadow:0 0 17px #e9b64f}
+}
+.envelope{
+ height:185px;
+ position:relative;
+ cursor:pointer;
+ perspective:900px;
+ filter:drop-shadow(0 8px 12px #100208);
+ transition:.3s;
+}
+.envelope:active{transform:scale(.96)}
+.env{
+ position:absolute;
+ inset:0;
+ overflow:hidden;
+ border:2px solid #e8c06d;
+ border-radius:8px;
+ background:linear-gradient(135deg,#a52d46,#641326);
+}
+.env:before{
+ content:"";
+ position:absolute;
+ inset:0;
+ background:linear-gradient(135deg,#c34a5c,#75172d);
+ clip-path:polygon(0 0,50% 55%,100% 0);
+ z-index:2;
+}
+.env:after{
+ content:"";
+ position:absolute;
+ inset:0;
+ background:linear-gradient(45deg,#76172e,#a52d45);
+ clip-path:polygon(0 100%,50% 48%,100% 100%);
+ z-index:3;
+}
+.side-left,.side-right{
+ position:absolute;
+ inset:0;
+ z-index:2;
+}
+.side-left{
+ background:#901d36;
+ clip-path:polygon(0 0,50% 55%,0 100%);
+}
+.side-right{
+ background:#a52d45;
+ clip-path:polygon(100% 0,50% 55%,100% 100%);
+}
+.seal{
+ position:absolute;
+ z-index:5;
+ left:50%;
+ top:50%;
+ transform:translate(-50%,-50%);
+ width:49px;
+ height:49px;
+ border-radius:50%;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ color:#681326;
+ background:radial-gradient(circle,#fff0bd,#d49a3d);
+ border:3px double #fff0c2;
+ font-size:24px;
+ box-shadow:0 0 16px #ffd778;
+}
+.envelope-name{
+ color:#ffdfa0;
+ font-size:20px;
+ margin-top:15px;
+}
+.envelope-desc{
+ color:#e9c98e;
+ font-size:13px;
+ margin-top:7px;
+}
+.open-button{
+ margin-top:12px;
+ background:transparent;
+ border:1px solid #e5bd6e;
+ color:#ffdfa0;
+ border-radius:25px;
+ padding:11px 23px;
+ font-size:14px;
+}
+
+/* OPEN LETTER */
+.modal{
+ position:fixed;
+ inset:0;
+ z-index:2000;
+ display:none;
+ overflow-y:auto;
+ background:#17040bf2;
+ padding:20px 12px;
+ align-items:center;
+ justify-content:center;
+}
+.modal.show{display:flex}
+.paper{
+ width:100%;
+ max-width:440px;
+ margin:auto;
+ background:linear-gradient(145deg,#fff2d3,#efd49c);
+ border:7px double #bd883d;
+ border-radius:12px;
+ padding:30px 20px;
+ color:#64152a;
+ text-align:center;
+ animation:reveal .6s ease;
+}
+@keyframes reveal{
+ from{opacity:0;transform:scale(.6) rotateY(40deg)}
+ to{opacity:1;transform:scale(1) rotateY(0)}
+}
+.paper h1{font-size:34px;color:#851d36}
+.paper h2{color:#8c2037;font-size:26px}
+.paper p{font-size:17px;line-height:1.8}
+.flower{font-size:34px}
+.close{
+ background:#74172c;
+ color:#fff0c9;
+ border:0;
+ padding:13px 28px;
+ border-radius:25px;
+ margin-top:20px;
+ font-size:16px;
+}
+.music{
+ position:fixed;
+ bottom:12px;
+ right:12px;
+ z-index:50;
+ border:1px solid #fff0bb;
+ border-radius:30px;
+ padding:12px 17px;
+ background:#f3d18c;
+ color:#571020;
+}
+footer{
+ text-align:center;
+ padding:40px 15px;
+ background:#4d1020;
+}
+footer h2{color:#ffdf91}
+</style>
+</head>
+
+<body>
+
+<audio id="player"></audio>
+
+<!-- FIRST SCREEN -->
+<div id="entry" onclick="enterWedding()">
+ <div class="temple-image"></div>
+ <div class="entry-shade"></div>
+
+ <div class="door-area">
+  <div class="temple-door left-door"></div>
+  <div class="temple-door right-door"></div>
+ </div>
+
+ <div class="entry-hint">
+  ✨ मंदिर में प्रवेश करने के लिए टच करें ✨
+ </div>
+</div>
+
+<!-- WEDDING INVITATION -->
+<div id="invitation">
+
+ <header class="hero">
+  <div class="om">🙏</div>
+  <h1>॥ जय जगन्नाथ ॥</h1>
+  <h2>शुभ विवाह निमंत्रण</h2>
+
+  <p>
+   भगवान जगन्नाथ जी के आशीर्वाद से<br>
+   एक नई जिंदगी की खूबसूरत शुरुआत
+  </p>
+
+  <div style="font-size:40px">🌺 💐 🌺</div>
+
+  <div class="couple-name">
+   Deepak ❤️ Priyanshu
+  </div>
+
+  <p>आप सपरिवार सादर आमंत्रित हैं।</p>
+  <p>👇 नीचे दिए गए निमंत्रण खोलें 👇</p>
+ </header>
+
+ <main class="container">
+  <h2 class="heading">
+   💌 सात विशेष निमंत्रण 💌
+  </h2>
+
+  <div id="cards"></div>
+
+  <div style="text-align:center;line-height:2">
+   🌹 आपका हार्दिक स्वागत है 🌹<br>
+   आपका आशीर्वाद हमारे लिए अनमोल है।
+  </div>
+ </main>
+
+ <footer>
+  <div style="font-size:48px">🙏</div>
+  <h2>जय जगन्नाथ</h2>
+  <h2>Deepak ❤️ Priyanshu</h2>
+  <p>शुभ विवाह • मंगलमय जीवन</p>
+ </footer>
+</div>
+
+<!-- LETTER POPUP -->
+<div class="modal" id="modal">
+ <div class="paper">
+  <div class="flower">🌺 🪔 🌺</div>
+  <h1 id="letterTitle"></h1>
+  <div id="letterContent"></div>
+  <div class="flower">❀ ✦ ❀</div>
+  <button class="close" onclick="closeLetter()">
+   लिफाफा बंद करें
+  </button>
+ </div>
+</div>
+
+<button class="music" onclick="toggleMusic()">
+ 🎵 Music ON/OFF
+</button>
+
+<script>
+
+/* ENTRY ANIMATION */
+let entered=false;
+
+function enterWedding(){
+ if(entered)return;
+ entered=true;
+
+ const entry=document.getElementById("entry");
+
+ entry.classList.add("opening");
+
+ setTimeout(()=>{
+  entry.classList.add("hide");
+  document.getElementById("invitation").style.display="block";
+  window.scrollTo(0,0);
+ },2800);
+}
+
+/* WEDDING DETAILS AND SONGS */
+const invitations=[
+
+{
+ name:"दूल्हा-दुल्हन के नाम",
+ desc:"दूल्हा और दुल्हन का नाम जानने के लिए खोलें",
+ icon:"💑",
+ song:"song1.mp3",
+ content:`
+ <h2>दो दिलों का मिलन</h2>
+ <h1>Deepak</h1>
+ <h2>❤️ WEDS ❤️</h2>
+ <h1>Priyanshu</h1>
+ <p>एक खूबसूरत रिश्ते की नई शुरुआत।</p>
+ `
+},
+
+{
+ name:"हल्दी समारोह",
+ desc:"हल्दी की तारीख जानने के लिए खोलें",
+ icon:"🌼",
+ song:"song2.mp3",
+ content:`
+ <h2>🌼 हल्दी समारोह 🌼</h2>
+ <p>तारीख: 25 नवंबर 2027</p>
+ <p>समय: [समय लिखें]</p>
+ <p>स्थान: [स्थान लिखें]</p>
+ <p>पीले रंग और खुशियों का उत्सव।</p>
+ `
+},
+
+{
+ name:"मेहंदी समारोह",
+ desc:"मेहंदी की तारीख जानने के लिए खोलें",
+ icon:"🌿",
+ song:"song3.mp3",
+ content:`
+ <h2>🌿 मेहंदी समारोह 🌿</h2>
+ <p>तारीख: 26 नवंबर 2027</p>
+ <p>समय: [समय लिखें]</p>
+ <p>स्थान: [स्थान लिखें]</p>
+ <p>संगीत और खुशियों भरी शाम।</p>
+ `
+},
+
+{
+ name:"बारात प्रस्थान",
+ desc:"बारात का समय जानने के लिए खोलें",
+ icon:"🐎",
+ song:"song4.mp3",
+ content:`
+ <h2>🐎 बारात प्रस्थान 🐎</h2>
+ <p>तारीख: 27 नवंबर 2027</p>
+ <p>समय: [बारात निकलने का समय]</p>
+ <p>प्रस्थान स्थान: [पता लिखें]</p>
+ `
+},
+
+{
+ name:"शुभ विवाह",
+ desc:"शादी का शुभ दिन जानने के लिए खोलें",
+ icon:"🔥",
+ song:"song5.mp3",
+ content:`
+ <h2>🔥 शुभ विवाह 🔥</h2>
+ <h1>Deepak ❤️ Priyanshu</h1>
+ <p>शादी की तारीख: 27 नवंबर 2027</p>
+ <p>शुभ मुहूर्त: [समय लिखें]</p>
+ <p>विवाह स्थल: [पूरा पता लिखें]</p>
+ `
+},
+
+{
+ name:"विदाई समारोह",
+ desc:"विदाई की तारीख जानने के लिए खोलें",
+ icon:"🌹",
+ song:"song6.mp3",
+ content:`
+ <h2>🌹 विदाई समारोह 🌹</h2>
+ <p>तारीख: 28 नवंबर 2027</p>
+ <p>समय: [समय लिखें]</p>
+ <p>नई जिंदगी के लिए ढेरों शुभकामनाएं।</p>
+ `
+},
+
+{
+ name:"विवाह स्थल",
+ desc:"शादी का पूरा पता जानने के लिए खोलें",
+ icon:"📍",
+ song:"song7.mp3",
+ content:`
+ <h2>📍 विवाह स्थल 📍</h2>
+ <p>[शादी का पूरा पता यहां लिखें]</p>
+ <p>आपकी उपस्थिति हमारा सौभाग्य होगी।</p>
+ `
+}
+
+];
+
+/* CREATE ENVELOPES */
+const cards=document.getElementById("cards");
+
+invitations.forEach((item,index)=>{
+
+ const card=document.createElement("div");
+ card.className="envelope-card";
+
+ card.innerHTML=`
+  <div class="open-label">✦ OPEN HERE ✦</div>
+
+  <div class="envelope">
+   <div class="env">
+    <div class="side-left"></div>
+    <div class="side-right"></div>
+    <div class="seal">${item.icon}</div>
+   </div>
+  </div>
+
+  <div class="envelope-name">${item.name}</div>
+  <div class="envelope-desc">${item.desc}</div>
+
+  <button class="open-button">
+   ✨ TAP TO OPEN ✨
+  </button>
+ `;
+
+ card.querySelector(".envelope").onclick=()=>openLetter(index);
+ card.querySelector(".open-button").onclick=()=>openLetter(index);
+
+ cards.appendChild(card);
+});
+
+/* MUSIC AND LETTERS */
+const modal=document.getElementById("modal");
+const player=document.getElementById("player");
+
+let activeSong="";
+
+function openLetter(index){
+
+ const item=invitations[index];
+
+ document.getElementById("letterTitle").textContent=item.name;
+ document.getElementById("letterContent").innerHTML=item.content;
+
+ modal.classList.add("show");
+
+ player.pause();
+ player.currentTime=0;
+
+ activeSong=item.song;
+ player.src=item.song;
+ player.load();
+
+ player.play().catch(()=>{
+  document.querySelector(".music").textContent="🎵 Play Music";
+ });
+}
+
+function closeLetter(){
+ modal.classList.remove("show");
+ player.pause();
+ document.querySelector(".music").textContent="🎵 Music ON/OFF";
+}
+
+function toggleMusic(){
+
+ if(player.paused && activeSong){
+  player.play().catch(()=>{});
+ }else{
+  player.pause();
+ }
+}
+
+modal.addEventListener("click",e=>{
+ if(e.target===modal)closeLetter();
+});
+
+</script>
+
+</body>
+</html>
